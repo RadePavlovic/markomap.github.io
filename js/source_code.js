@@ -16,25 +16,50 @@ $(document).ready(function () {
     zoomControl: true,
   });
 
+
   lyrOSM = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
-  myMap.addLayer(lyrOSM);
+  myMap.addLayer(lyrOSM); 
+ 
   fetch("data/data.geojson")
     .then(function (response) {
       return response.json();
     })
-    .then((res) => {
+    .then((res) => {       
+
       var options = {
-        maxZoom: 20,
-        tolerance: 0,
-        debug: 1,
+        maxZoom: 18,
+        tolerance: 3,
+        debug: 0,
+        extent: 4096,
+        buffer: 64,
+        async:true,
         style: {
           fillColor: "#F2FF00",
           color: "#174ddc",
-        },
-      };
+        } 
+      }; 
       L.geoJson.vt(res, options).addTo(myMap);
       setTimeout(() => {
         removeLoader(); 
       }, 500);
-    });
+    }); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
