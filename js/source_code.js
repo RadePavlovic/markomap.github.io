@@ -1,4 +1,4 @@
-var myMap;
+var map;
 var lyrOSM;
 var lyrData;
 
@@ -10,15 +10,15 @@ function removeLoader() {
 
 $(document).ready(function () { 
 
-  myMap = L.map("map_div", {
+  map = L.map("map_div", {
     center: [44.861509284428749, 20.481897771863135],
     zoom: 15,
     zoomControl: true,
   });
 
 
-  lyrOSM = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
-  myMap.addLayer(lyrOSM); 
+  lyrOSM = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png");
+  map.addLayer(lyrOSM); 
  
   fetch("data/data.geojson")
     .then(function (response) {
@@ -31,14 +31,13 @@ $(document).ready(function () {
         tolerance: 3,
         debug: 0,
         extent: 4096,
-        buffer: 64,
-        async:true,
+        buffer: 64, 
         style: {
           fillColor: "#F2FF00",
           color: "#174ddc",
         } 
       }; 
-      L.geoJson.vt(res, options).addTo(myMap);
+      L.geoJson.vt(res, options).addTo(map);
       setTimeout(() => {
         removeLoader(); 
       }, 500);
